@@ -1,11 +1,10 @@
-import { Title, Button, User } from "ui";
+import { Title, Button } from "ui";
 
 export default function Web() {
   return (
     <div>
-      <Title>Web</Title>
+      <Title>Cloud</Title>
       <Button>hello!</Button>
-      <User />
     </div>
   );
 }

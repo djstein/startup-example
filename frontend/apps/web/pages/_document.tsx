@@ -1,4 +1,5 @@
 import Document, { DocumentContext, DocumentInitialProps } from "next/document";
+import React from "react";
 import { ServerStyleSheet } from "styled-components";
 
 export default class MyDocument extends Document {
@@ -19,10 +20,12 @@ export default class MyDocument extends Document {
       return {
         ...initialProps,
         styles: [
-          <>
+          <React.Fragment key="initialProps">
             {initialProps.styles}
+          </React.Fragment>,
+          <React.Fragment key="getStyleElement">
             {sheet.getStyleElement()}
-          </>,
+          </React.Fragment>,
         ],
       };
     } finally {

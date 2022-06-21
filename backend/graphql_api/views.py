@@ -1,6 +1,7 @@
 from django.http import HttpResponsePermanentRedirect
 from django.views.generic.base import TemplateView
 from graphene_django.views import GraphQLView
+from django.conf import settings
 
 class CustomGraphQLView(GraphQLView, TemplateView):
 
@@ -9,5 +10,5 @@ class CustomGraphQLView(GraphQLView, TemplateView):
         show_graphiql = self.graphiql and self.can_display_graphiql(request, data)
 
         if show_graphiql:
-            return HttpResponsePermanentRedirect('http://localhost:3002')
+            return HttpResponsePermanentRedirect(settings.GRAPHQL_IDE_URL)
         return super().dispatch(request, *args, **kwargs)

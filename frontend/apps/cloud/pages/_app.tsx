@@ -1,20 +1,13 @@
 import { ThemeProvider } from "styled-components";
 import { GlobalStyle, LightTheme, DarkTheme } from "ui";
 import { ThemeProvider as NextThemeProvider, useTheme } from "next-themes";
-import { FetchParamsProvider } from "sdk";
-import { QueryClient, QueryClientProvider } from "react-query";
 
 function AppWithContext({ Component, pageProps }) {
   const { resolvedTheme } = useTheme();
-  const queryClient = new QueryClient();
 
   return (
     <ThemeProvider theme={resolvedTheme === "light" ? LightTheme : DarkTheme}>
-      <FetchParamsProvider url={"http://localhost:8000/graphql/"} header={{}}>
-        <QueryClientProvider client={queryClient}>
-          <Component {...pageProps} />
-        </QueryClientProvider>
-      </FetchParamsProvider>
+      <Component {...pageProps} />
     </ThemeProvider>
   );
 }
