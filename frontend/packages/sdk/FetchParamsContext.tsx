@@ -1,28 +1,25 @@
-import React, { createContext } from "react";
+import { createContext } from "react";
 
 interface FetchParamContextInterface {
-  header: Record<string, unknown>;
-  url: undefined | string;
+  headers: Record<string, unknown>;
+  url: string;
 }
 
-export const FetchParamsContext =
-  createContext<FetchParamContextInterface | null>(null);
-
-const InitialFetchParamsContext: FetchParamContextInterface = {
-  header: {},
-  url: "http://localhost:8000/graphql/",
-};
+export const FetchParamsContext = createContext<FetchParamContextInterface>({
+  headers: {},
+  url: "http://localhost:8000",
+});
 
 interface FetchParamsProviderInterface extends FetchParamContextInterface {
   children: JSX.Element;
 }
 export const FetchParamsProvider = ({
   children,
-  header,
+  headers,
   url,
 }: FetchParamsProviderInterface) => {
   return (
-    <FetchParamsContext.Provider value={{ header, url }}>
+    <FetchParamsContext.Provider value={{ headers, url }}>
       {children}
     </FetchParamsContext.Provider>
   );

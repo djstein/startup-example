@@ -1,8 +1,9 @@
 import { ThemeProvider } from "styled-components";
 import { GlobalStyle, LightTheme, DarkTheme } from "ui";
 import { ThemeProvider as NextThemeProvider, useTheme } from "next-themes";
+import { AppProps } from "next/app";
 
-function AppWithContext({ Component, pageProps }) {
+function AppWithContext({ Component, pageProps }: AppProps) {
   const { resolvedTheme } = useTheme();
 
   return (
@@ -12,12 +13,12 @@ function AppWithContext({ Component, pageProps }) {
   );
 }
 
-export default function App({ Component, pageProps }) {
+export default function App(props: AppProps) {
   return (
     <>
       <GlobalStyle />
       <NextThemeProvider>
-        <AppWithContext Component={Component} pageProps={pageProps} />
+        <AppWithContext {...props} />
       </NextThemeProvider>
     </>
   );

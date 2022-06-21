@@ -1,10 +1,11 @@
 import { useContext } from "react";
 import { FetchParamsContext } from "./FetchParamsContext";
+import { Exact } from "./graphql-api-sdk";
 
 export const useFetchData = <TData, TVariables>(
   query: string,
-  options?: RequestInit["headers"]
-): ((variables?: TVariables) => Promise<TData>) => {
+  variables?: Exact<{ [key: string]: never }>
+): (() => Promise<TData>) => {
   const { url, headers } = useContext(FetchParamsContext);
 
   return async (variables?: TVariables) => {
@@ -13,7 +14,6 @@ export const useFetchData = <TData, TVariables>(
       headers: {
         "Content-Type": "application/json",
         ...headers,
-        ...(options ?? {}),
       },
       body: JSON.stringify({
         query,
