@@ -19,19 +19,16 @@ from django.contrib.admindocs import urls as admindocs_urls
 from django.conf import settings
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
-    path('admin/doc/', include('django.contrib.admindocs.urls')),
-    path("", include("graphql_api.urls"))
+    path("admin/", admin.site.urls),
+    path("admin/doc/", include("django.contrib.admindocs.urls")),
+    path("", include("graphql_api.urls")),
 ]
 
 if settings.DEBUG:  # pragma: no cover
     from django.conf.urls.static import static  # noqa: WPS433
 
-    urlpatterns = (
-        urlpatterns
-        + static(
-            # Serving media files in development only:
-            settings.MEDIA_URL,
-            document_root=settings.MEDIA_ROOT,
-        )
+    urlpatterns = urlpatterns + static(
+        # Serving media files in development only:
+        settings.MEDIA_URL,
+        document_root=settings.MEDIA_ROOT,
     )

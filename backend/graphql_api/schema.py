@@ -12,4 +12,5 @@ class Query(UsersQuery, graphene.ObjectType):
 class Mutation(UsersMutation, graphene.ObjectType):
     pass
 
+
 schema = graphene.Schema(query=Query, mutation=Mutation)

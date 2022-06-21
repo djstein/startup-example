@@ -24,7 +24,11 @@ ipdb = "^0.13.9"
 pytest = "^7.1.2"
 pytest-django = "^4.5.2"
 pytest-cov = "^3.0.0"
+isort = "^5.10.1"
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]
 build-backend = "poetry.core.masonry.api"
+
+[tool.isort]
+profile = "black"

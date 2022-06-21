@@ -3,6 +3,7 @@ from graphene import relay
 from graphene_django import DjangoObjectType
 import graphene
 
+
 class UserType(DjangoObjectType):
     pk = graphene.Field(type_=graphene.String, source="pk")
 
