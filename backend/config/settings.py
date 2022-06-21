@@ -38,7 +38,9 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "corsheaders",
+    "authentication",
     "graphql_api",
+    "graphene_django"
 ]
 
 MIDDLEWARE = [
@@ -50,6 +52,7 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
+    "authentication.middleware.TokenAuthenticationMiddleware"
 ]
 
 ROOT_URLCONF = "config.urls"
@@ -127,7 +130,6 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 GRAPHENE = {
     "SCHEMA": "graphql_api.schema.schema",
-    "SCHEMA_OUTPUT": "GraphqlSchema.json",
     "SCHEMA_INDENT": 2,
 }
 
@@ -151,4 +153,8 @@ CSRF_TRUSTED_ORIGINS = [
     "http://localhost:3003",
 ]
 
+CSRF_USE_SESSIONS = True
+
 GRAPHQL_IDE_URL = "http://localhost:3003"
+
+PASSTHROUGH_URLS = ['/graphql/', '/admin/login/']

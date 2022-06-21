@@ -19,4 +19,4 @@ def update_or_create(Model, kwargs: dict):
 
 
 def delete(Model, kwargs: dict):
-    return Model.objects.get(id=convert_object_relay_ids_to_db_ids(kwargs).get("id"))
+    return Model.objects.delete(id=convert_object_relay_ids_to_db_ids(kwargs).get("id"))

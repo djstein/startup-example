@@ -1,10 +1,11 @@
 import { ApolloExplorerReact } from "@apollo/explorer";
+import { schema } from "sdk";
 
 export default function Explorer() {
   return (
     <ApolloExplorerReact
       className="apollo-explorer"
-      graphRef="startup-example@current"
+      schema={schema}
       endpointUrl="http://localhost:8000/graphql/"
       initialState={{
         displayOptions: {

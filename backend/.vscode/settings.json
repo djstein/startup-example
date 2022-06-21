@@ -1,5 +1,5 @@
 {
-  "cSpell.words": ["graphene"],
+  "cSpell.words": ["graphene", "ickyness"],
   "python.formatting.provider": "black",
   "editor.formatOnSave": true
 }

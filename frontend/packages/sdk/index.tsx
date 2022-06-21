@@ -1,3 +1,3 @@
-import * as React from "react";
-export * from "./graphql-api-sdk";
 export * from "./Fetcher";
+export * from "./graphql-api-sdk";
+export * as schema from "./graphql.schema";
