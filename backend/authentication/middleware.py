@@ -1,3 +1,6 @@
+from datetime import datetime, timedelta
+from json import loads
+
 from django.conf import settings
 from django.contrib.auth import login
 from django.forms import ValidationError
@@ -84,10 +87,21 @@ class TokenAuthenticationMiddleware:
 
         return (token.user, token)
 
-# class LoginMiddleware:
-# IF THE USER LOGS IN SUCCESSFULLY then create or return the default auth token in the sessions cookies
-#     def __init__(self, get_response):
-#         self.get_response = get_response
+class LoginAddTokenToCookiesMiddleware:
+    def __init__(self, get_response):
+        self.get_response = get_response
 
-#     def __call__(self, request):
-#         if request.path is '/graphql/' and request.body.content()
+    def __call__(self, request):
+        response = self.get_response(request)
+        # if the request is:
+        # - the user was logged in via the authentication backend
+        # - the response was successful
+        # - coming in from the GraphQL path
+        if request.user.is_authenticated and response.status_code == 200 and request.path == '/graphql/' and 'login' in request.body.decode():
+            token_key = loads(response.content.decode()).get('data', {}).get('login', {}).get('token', {}).get('key', {})
+            if token_key:
+                expires = datetime.now() + timedelta(days=1)
+                response.set_cookie(
+                    'auth-token', value=token_key, expires=expires, path='/', domain="localhost:3003", secure=False, httponly=True, samesite=None
+                )
+        return response

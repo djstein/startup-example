@@ -1,5 +1,5 @@
 import graphene
-from django.contrib.auth import get_user_model, login
+from django.contrib.auth import authenticate, get_user_model, login
 from graphene import Field, relay
 
 from authentication.models import Token
@@ -28,11 +28,13 @@ class Login(relay.ClientIDMutation):
 
     @classmethod
     def mutate_and_get_payload(cls, root, info, **kwargs):
-        import ipdb
-        ipdb.set_trace()
-
-        user = login(info.context.request)
-        token = Token.objects.get_or_create(user=user, key_name="default")
+        request = info.context
+        username = kwargs.get('username')
+        password = kwargs.get('password')
+        user = authenticate(request, username=username, password=password)
+        if user is not None:
+            login(request, user)
+            token, _created = Token.objects.get_or_create(user=user, key_name="default")
         return cls(token=token)
 
 
