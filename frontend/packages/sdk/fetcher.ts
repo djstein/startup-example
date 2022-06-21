@@ -4,11 +4,11 @@ import { Exact } from "./graphql-api-sdk";
 
 export const useFetchData = <TData, TVariables>(
   query: string,
-  variables?: Exact<{ [key: string]: never }>
+  variables?: TVariables
 ): (() => Promise<TData>) => {
   const { url, headers } = useContext(FetchParamsContext);
 
-  return async (variables?: TVariables) => {
+  return async () => {
     const res = await fetch(url, {
       method: "POST",
       headers: {
