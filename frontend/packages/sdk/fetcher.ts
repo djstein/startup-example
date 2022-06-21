@@ -1,6 +1,5 @@
 import { useContext } from "react";
 import { FetchParamsContext } from "./FetchParamsContext";
-import { Exact } from "./graphql-api-sdk";
 
 export const useFetchData = <TData, TVariables>(
   query: string,
